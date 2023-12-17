@@ -8,3 +8,9 @@ MilkScript lets you create scripts (written in JavaScript) to query and automate
 This repo is a collection of scripts that I've written to create reports of Completed items. At least, so far. It's not restricted to only these types of scripts.
 
 Please feel to send me a pull request to add other useful scripts.
+
+## Installation
+To 'install' a script, copy the content, and paste it into a new MilkScript script that you create in your account.
+
+## Notes
+* For scripts that run a report for the past, I've not fully tested runs that occur on January 1, or in January. Feedback welcome!
