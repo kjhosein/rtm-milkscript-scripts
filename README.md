@@ -10,7 +10,7 @@ This repo is a collection of scripts that I've written to create reports of Comp
 Please feel to send me a pull request to add other useful scripts.
 
 ## Installation
-To 'install' a script, copy the content, and paste it into a new MilkScript script that you create in your account.
+To 'install' a script, first create a new MilkScript script in your RTM account. Then copy the content of the .js file from this repo, and paste it into the blank MilkScript script.
 
 ## Notes
 * For scripts that run a report for the past, I've not fully tested runs that occur on January 1, or in January. Feedback welcome!
