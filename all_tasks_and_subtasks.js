@@ -13,6 +13,15 @@ for (const list of all_lists){
         for (const task of tasks_in_list){
             output += "\r\n\t";
             output += truncate(task.getName(), 60);
+
+            
+            // Get any subtasks:
+            for (const subtask of task.getSubtasks()){
+                if(!subtask.isCompleted()){
+                        output += "\r\n\t\t";
+                        output += truncate(subtask.getName(), 60);
+                }
+            }
         }
 }
 
