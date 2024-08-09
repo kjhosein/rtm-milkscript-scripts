@@ -1,49 +1,72 @@
-let output = '';
+// This Remember the Milk MilkScript outputs all of your incomplete tasks and subtasks, grouped by list.
+// 
+// The output is in text, but also formatted in basic Markdown. 
+// You may optionally strip the '.txt' extension of the downloaded file to have it read as MD.
+//
+// Written by Khalid J Hosein, Aug 2024.
+// https://www.khalidjhosein.net
+
+
+let header = "# All RTM Tasks & Substasks, as of " + todaysDate();
+let output = header;
 
 // Get the list of all user Lists:
 const all_lists = rtm.getLists();
 
 // For each list, get its name, then use that to get its tasks
 for (const list of all_lists){
-        output += "\r\n\r\n";
-        output += "# LIST: " + list.getName();
+    output += "\r\n\r\n\r\n";
+    output += "## _" + list.getName() + "_" + "\r\n";
 
-        // create a search filter to only search this list
-        const tasks_in_list  = rtm.getTasks('list:"' + list.getName() + '"' + ' AND status:incomplete');
-        for (const task of tasks_in_list){
-            output += "\r\n\t";
-            output += truncate(task.getName(), 60);
+    // create a search filter to only search this list
+    const tasks_in_list  = rtm.getTasks('list:"' + list.getName() + '"' + ' AND status:incomplete and isSubtask:false');
 
-            
-            // Get any subtasks:
-            for (const subtask of task.getSubtasks()){
-                if(!subtask.isCompleted()){
-                        output += "\r\n\t\t";
-                        output += truncate(subtask.getName(), 60);
-                }
+    let i = 1;  // for numbering the tasks
+
+    for (const task of tasks_in_list){
+        output += "\r\n";
+        output += i + ". " + truncate(task.getName(), 60);
+        i++;
+
+        // Get any subtasks:
+        let j = 1;  // for numbering the subtasks
+        for (const subtask of task.getSubtasks()){
+            if (!subtask.isCompleted()){
+                output += "\r\n    ";
+                output += j + ". " + truncate(subtask.getName(), 60);
+                // j++;
             }
+            j++;
         }
+        if (j > 1){ output += "\n"; }
+    }
 }
 
-
-
-
-// TESTING:
-// let list1 = 'My Bucket List';
-// const tasks  = rtm.getTasks('list:"' + list1 + '"' + ' AND status:incomplete');
-// output += "\r\n";
-// for (const task of tasks){
-//         output += "\r\n";
-//         output += task.getName();
-// }
-
-// Now the list with some details:
-//output += all_lists;
+output += "\r\n\r\n";
 
 // Uncomment next line for debugging.
-console.log(output);
+// console.log(output);
 
+const filename = todaysDateNumeric() + " - All Tasks & Subtasks (via RTM).md.txt"
+rtm.newFile(output, rtm.MediaType.TEXT, filename);
+
+
+
+function todaysDate() {
+    const date = new Date();
+    const formattedDate = date.toLocaleDateString('en-GB', {
+        day: 'numeric', month: 'short', year: 'numeric'
+    })
+    return formattedDate;
+}
+
+function todaysDateNumeric() {
+    const date = new Date();
+    const numericMonth = date.getUTCMonth() + 1;
+    const formattedDate = date.getUTCFullYear() + '.' + numericMonth + '.' + date.getDate();
+    return formattedDate;
+}
 
 function truncate(str, n){
-  return (str.length > n) ? str.slice(0, n-1) + '...' : str;
+    return (str.length > n) ? str.slice(0, n-1) + '...' : str;
 };
