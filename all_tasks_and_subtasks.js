@@ -15,11 +15,14 @@ const all_lists = rtm.getLists();
 
 // For each list, get its name, then use that to get its tasks
 for (const list of all_lists){
-    output += "\r\n\r\n\r\n";
-    output += "## _" + list.getName() + "_" + "\r\n";
+    
+    if (! list.isArchived()){
+        output += "\r\n\r\n\r\n";
+        output += "## _" + list.getName() + "_" + "\r\n";
+    }
 
     // create a search filter to only search this list
-    const tasks_in_list  = rtm.getTasks('list:"' + list.getName() + '"' + ' AND status:incomplete and isSubtask:false');
+    const tasks_in_list  = rtm.getTasks('list:"' + list.getName() + '"' + ' AND status:incomplete and isSubtask:false and includeArchived:false');
 
     let i = 1;  // for numbering the tasks
 
