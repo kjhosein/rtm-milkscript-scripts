@@ -36,8 +36,7 @@ for (const list of all_lists){
         for (const subtask of task.getSubtasks()){
             if (!subtask.isCompleted()){
                 output += "\r\n    ";
-                output += j + ". " + truncate(subtask.getName(), 60);
-                // j++;
+                output += "* " + truncate(subtask.getName(), 60);
             }
             j++;
         }
