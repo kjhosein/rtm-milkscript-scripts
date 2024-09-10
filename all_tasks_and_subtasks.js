@@ -1,9 +1,10 @@
 // This Remember the Milk MilkScript outputs all of your incomplete tasks and subtasks, grouped by list.
+// Subtasks are indented.
 // 
 // The output is in text, but also formatted in basic Markdown. 
 // You may optionally strip the '.txt' extension of the downloaded file to have it read as MD.
 //
-// Written by Khalid J Hosein, Aug 2024.
+// Written by Khalid J Hosein, Sept 2024.
 // https://www.khalidjhosein.net
 
 
